@@ -4,7 +4,7 @@
     "description": "BFF App MercadoLibre",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon index",
+        "start": "nodemon app",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -19,6 +19,7 @@
     "homepage": "https://github.com/parraSebastian91/bff-mercado-libre#readme",
     "dependencies": {
         "axios": "^0.21.1",
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "node-env-file": "^0.1.8"
     }
 }

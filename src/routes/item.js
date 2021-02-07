@@ -1,23 +1,17 @@
-const express = require('express');
+var router = require('express').Router()
 const axios = require('axios');
-const app = express();
-const port = 3001;
-
-
-
-
 
 /**
  * Prueba de servicio
  */
-app.get('/', (req, res) => {
-    res.send('prueba request')
+router.get('/test', (req, res) => {
+    res.send('prueba request item')
 })
 
 /**
  * Busqueda de item por query string
  */
-app.get('/api/item', async(req, res) => {
+router.get('', async(req, res) => {
     const query = req.query.q;
     const reqURL = `https://api.mercadolibre.com/sites/MLA/search?q=${query}`;
     const resultadoBusqueda = await axios.get(reqURL)
@@ -57,7 +51,7 @@ app.get('/api/item', async(req, res) => {
 
 })
 
-app.get('/api/item/:id', async(req, res) => {
+router.get('/:id', async(req, res) => {
     const idItem = req.params.id;
     const itemURL = `https://api.mercadolibre.com/items/${idItem}`;
     const itemDescriptionURL = `https://api.mercadolibre.com/items/${idItem}/description`;
@@ -66,10 +60,8 @@ app.get('/api/item/:id', async(req, res) => {
             axios.get(itemDescriptionURL)
         ])
         .then(axios.spread((itemResponse, descResponse) => {
-            console.log()
             respItem = itemResponse.data;
             respDesc = descResponse.data;
-            console.log(respDesc)
             const responseFormateado = {
                 id: idItem,
                 title: respItem.title,
@@ -84,11 +76,9 @@ app.get('/api/item/:id', async(req, res) => {
                 sold_quantity: respItem.sold_quantity,
                 description: respDesc.plain_text
             }
-            res.send(responseFormateado)
+            res.send(responseFormateado);
 
         }))
-})
+});
 
-app.listen(port, () => {
-    console.log(`Servidor de escucha en http://localhost:${port}`)
-})
+module.exports = router
