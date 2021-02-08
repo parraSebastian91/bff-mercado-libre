@@ -16,15 +16,17 @@ router.get('', async(req, res) => {
     const reqURL = `https://api.mercadolibre.com/sites/MLA/search?q=${query}`;
     const resultadoBusqueda = await axios.get(reqURL)
         .then(response => {
+            const categorias = response.data.available_filters.find(f => f.id == 'category')
             const responseFormateado = {
                 author: {
                     name: 'sebastian',
                     lastname: 'parra'
                 },
-                categories: [
-                    'Categoria 1',
-                    'Categoria 2',
-                ],
+                categories: ((categorias) ? categorias.values.slice(0, 5).map(m => {
+                    return m.name
+                }) : response.data.filters.find(f => f.id == 'category').values[0].path_from_root.slice(0, 5).map(m => {
+                    return m.name
+                })),
                 items: []
             }
             responseFormateado.items = response.data.results.slice(1, 5).map(m => {
