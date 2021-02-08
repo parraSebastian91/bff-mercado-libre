@@ -42,6 +42,7 @@ router.get('', async(req, res) => {
                 }
 
             });
+            res.set('Content-Type', 'application/json')
             res.send(responseFormateado)
         })
         .catch(error => {
@@ -50,6 +51,8 @@ router.get('', async(req, res) => {
         });
 
 })
+
+
 
 router.get('/:id', async(req, res) => {
     const idItem = req.params.id;
@@ -79,6 +82,10 @@ router.get('/:id', async(req, res) => {
             res.send(responseFormateado);
 
         }))
+        .catch(err => {
+            res.send({ cod: 500, msj: 'error' });
+            res.s
+        })
 });
 
 module.exports = router

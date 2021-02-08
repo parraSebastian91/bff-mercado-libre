@@ -19,6 +19,7 @@
     "homepage": "https://github.com/parraSebastian91/bff-mercado-libre#readme",
     "dependencies": {
         "axios": "^0.21.1",
+        "cors": "^2.8.5",
         "express": "^4.17.1",
         "node-env-file": "^0.1.8"
     }
